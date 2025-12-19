@@ -23,10 +23,10 @@
 ### Lower Layer (Numbers & Navigation)
 ```
 // -----------------------------------------------------------------------------------------
-// |  TAB  | PSCR |  DEL  |  UP  | BSPC | PGUP |   | KP* | KP7 | KP8 | KP9 | KP/ | BSPC |
+// |  TAB  | PSCR |  DEL  |  UP  | BSPC | PGUP |   | KP* | KP7 | KP8 | KP9 | KP/ | ESC  |
 // | LSHFT | HOME | LEFT  | DOWN | RGHT | END  |   | KP+ | KP4 | KP5 | KP6 | KP- |      |
 // | CTRL  |      | VOL-  | MUTE | VOL+ | PGDN |   | KP0 | KP1 | KP2 | KP3 | KP. |      |
-//                        | LALT |      |SPACE |   | RET |     | ESC |
+//                        | LALT |      |SPACE |   | RET |     | BSPC|
 ```
 
 ### Raise Layer (Symbols)
