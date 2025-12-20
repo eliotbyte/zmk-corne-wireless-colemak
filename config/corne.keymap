@@ -48,10 +48,10 @@
 // | CTRL  |      | VOL-  | MUTE | VOL+ | PGDN |   | KP0 | KP1 | KP2 | KP3 | KP. |      |
 //                        | LALT |      |SPACE |   | RET |     | ESC |
                         bindings = <
-   &kp TAB     &kp PSCRN   &kp DEL      &kp UP      &kp BSPC     &kp PGUP        &kp KP_MULTIPLY   &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_DIVIDE  &kp ESC
+   &kp TAB     &kp PSCRN   &kp DEL      &kp UP      &kp BSPC     &kp PGUP        &kp KP_MULTIPLY   &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_DIVIDE  &kp BSPC
    &kp LSHFT   &kp HOME    &kp LEFT     &kp DOWN    &kp RIGHT    &kp END         &kp KP_PLUS     &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS &trans
    &kp LCTRL   &trans      &kp C_VOL_DN &kp C_MUTE  &kp C_VOL_UP &kp PGDN       &kp KP_N0       &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DOT   &trans
-                                                &kp LALT    &trans      &kp SPACE               &kp RET       &trans      &kp BSPC
+                                                &kp LALT    &trans      &kp SPACE               &kp RET       &trans      &kp ESC
                         >;
                 };
 
