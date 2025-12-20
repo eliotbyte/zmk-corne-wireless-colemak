@@ -43,29 +43,29 @@
 
                 lower_layer {
 // -----------------------------------------------------------------------------------------
-// |  TAB  | PSCR |  DEL  |  UP  | BSPC | PGUP |   | KP* | KP7 | KP8 | KP9 | KP/ | ESC  |
+// |  TAB  | PSCR |  DEL  |  UP  | BSPC | PGUP |   | KP* | KP7 | KP8 | KP9 | KP/ | BSPC |
 // | LSHFT | HOME | LEFT  | DOWN | RGHT | END  |   | KP+ | KP4 | KP5 | KP6 | KP- |      |
 // | CTRL  |      | VOL-  | MUTE | VOL+ | PGDN |   | KP0 | KP1 | KP2 | KP3 | KP. |      |
-//                        | LALT |      |SPACE |   | RET |     | BSPC|
+//                        | LALT |      |SPACE |   | RET |     | ESC |
                         bindings = <
-   &kp TAB     &kp PSCRN   &kp DEL      &kp UP      &kp BSPC     &kp PGUP        &kp KP_MULTIPLY   &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_DIVIDE  &kp BSPC
+   &kp TAB     &kp PSCRN   &kp DEL      &kp UP      &kp BSPC     &kp PGUP        &kp KP_MULTIPLY   &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_DIVIDE  &kp ESC
    &kp LSHFT   &kp HOME    &kp LEFT     &kp DOWN    &kp RIGHT    &kp END         &kp KP_PLUS     &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS &trans
    &kp LCTRL   &trans      &kp C_VOL_DN &kp C_MUTE  &kp C_VOL_UP &kp PGDN       &kp KP_N0       &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DOT   &trans
-                                                &kp LALT    &trans      &kp SPACE               &kp RET       &trans      &kp ESC
+                                                &kp LALT    &trans      &kp SPACE               &kp RET       &trans      &kp BSPC
                         >;
                 };
 
                 raise_layer {
 // -----------------------------------------------------------------------------------------
-// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | ESC  |
+// |  TAB |  !  |  @  |  #  |  $  |  %  |   |  ^  |  &  |  *  |  (  |  )  | BSPC |
 // | LSHFT|     |     |     |     |     |   |  -  |  =  |  [  |  ]  |  \  |  `   |
 // | CTRL |     |     |     |     |     |   |  _  |  +  |  {  |  }  | "|" |  ~   |
-//                    | LALT|     |SPACE|   | RET |     | BSPC|
+//                    | LALT|     |SPACE|   | RET |     | ESC |
                         bindings = <
-   &kp TAB   &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp ESC
+   &kp TAB   &kp EXCL &kp AT &kp HASH &kp DLLR &kp PRCNT   &kp CARET &kp AMPS  &kp ASTRK &kp LPAR &kp RPAR &kp BSPC
    &kp LSHFT &trans   &trans &trans   &trans   &trans      &kp MINUS &kp EQUAL &kp LBKT  &kp RBKT &kp BSLH &kp GRAVE
    &kp LCTRL &trans   &trans &trans   &trans   &trans      &kp UNDER &kp PLUS  &kp LBRC  &kp RBRC &kp PIPE &kp TILDE
-                             &kp LALT &trans   &kp SPACE   &kp RET   &trans    &kp BSPC
+                             &kp LALT &trans   &kp SPACE   &kp RET   &trans    &kp ESC
                         >;
                 };
 
