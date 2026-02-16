@@ -43,14 +43,14 @@
 
                 lower_layer {
 // -----------------------------------------------------------------------------------------
-// |  TAB  | PSCR |  DEL  |  UP  | BSPC | PGUP |   | KP* | KP7 | KP8 | KP9 | KP/ | BSPC |
-// | LSHFT | HOME | LEFT  | DOWN | RGHT | END  |   | KP+ | KP4 | KP5 | KP6 | KP- |      |
-// | CTRL  |      | VOL-  | MUTE | VOL+ | PGDN |   | KP0 | KP1 | KP2 | KP3 | KP. |      |
+// |  TAB  | PSCR |  DEL  |  UP  | BSPC | PGUP |   |  *  |  7  |  8  |  9  |  /  | BSPC |
+// | LSHFT | HOME | LEFT  | DOWN | RGHT | END  |   |  +  |  4  |  5  |  6  |  -  |      |
+// | CTRL  |      | VOL-  | MUTE | VOL+ | PGDN |   |  0  |  1  |  2  |  3  |  .  |      |
 //                        | LALT |      |SPACE |   | RET |     | ESC |
                         bindings = <
-   &kp TAB     &kp PSCRN   &kp DEL      &kp UP      &kp BSPC     &kp PGUP        &kp KP_MULTIPLY   &kp KP_N7   &kp KP_N8   &kp KP_N9   &kp KP_DIVIDE  &kp BSPC
-   &kp LSHFT   &kp HOME    &kp LEFT     &kp DOWN    &kp RIGHT    &kp END         &kp KP_PLUS     &kp KP_N4   &kp KP_N5   &kp KP_N6   &kp KP_MINUS &trans
-   &kp LCTRL   &trans      &kp C_VOL_DN &kp C_MUTE  &kp C_VOL_UP &kp PGDN       &kp KP_N0       &kp KP_N1   &kp KP_N2   &kp KP_N3   &kp KP_DOT   &trans
+   &kp TAB     &kp PSCRN   &kp DEL      &kp UP      &kp BSPC     &kp PGUP        &kp ASTRK   &kp N7   &kp N8   &kp N9   &kp FSLH  &kp BSPC
+   &kp LSHFT   &kp HOME    &kp LEFT     &kp DOWN    &kp RIGHT    &kp END         &kp PLUS   &kp N4   &kp N5   &kp N6   &kp MINUS &trans
+   &kp LCTRL   &trans      &kp C_VOL_DN &kp C_MUTE  &kp C_VOL_UP &kp PGDN       &kp N0     &kp N1   &kp N2   &kp N3   &kp DOT   &trans
                                                 &kp LALT    &trans      &kp SPACE               &kp RET       &trans      &kp ESC
                         >;
                 };
