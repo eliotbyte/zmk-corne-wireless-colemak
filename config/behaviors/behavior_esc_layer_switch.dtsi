@@ -4,14 +4,14 @@
       compatible = "zmk,behavior-macro";
       label = "MACRO_TO_RUS";
       #binding-cells = <0>;
-      bindings = < &kp LC(N1) &to 1 >;
+      bindings = < &kp LA(LS(N2)) &to 1 >;
     };
 
     macro_to_eng: macro_to_eng {
       compatible = "zmk,behavior-macro";
       label = "MACRO_TO_ENG";
       #binding-cells = <0>;
-      bindings = < &kp LC(N0) &to 0 >;
+      bindings = < &kp LA(LS(N1)) &to 0 >;
     };
 
     to_rus: to_rus {
