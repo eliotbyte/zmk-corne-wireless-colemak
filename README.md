@@ -30,6 +30,6 @@ This is a simple, “can’t really mess it up” ZMK firmware/keymap for a wire
 
 - **Important**: this keymap sends **Ctrl+0** (English) and **Ctrl+1** (Russian) for OS-level input language switching. For it to actually switch languages, you must bind/set your OS language switch hotkeys to those combos.
 - **Keymap behavior**:
-  - **Ctrl+0**: switch OS input language to English + go to the default layer
-  - **Ctrl+1**: switch OS input language to Russian + go to the Russian layer
+  - **LAlt+Shift+1**: switch OS input language to English + go to the default layer
+  - **LAlt+Shift+2**: switch OS input language to Russian + go to the Russian layer
   - **LAlt (tap)**: toggle default/russian (via `&to_eng` / `&to_rus`)
