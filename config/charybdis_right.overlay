@@ -11,3 +11,18 @@
     zephyr,axis-y = <INPUT_REL_Y>;
     res-cpi = <800>;
 };
+
+&trackball_split {
+    status = "disabled";
+};
+
+/ {
+    split_inputs {
+        trackball_input: trackball_input@0 {
+            compatible = "zmk,input-split";
+            reg = <0>;
+            status = "okay";
+            device = <&trackball>;
+        };
+    };
+};
