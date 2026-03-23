@@ -78,3 +78,37 @@ jobs:
         with:
           name: firmware-right
           path: corne_right_nice_nano.uf2
+      - name: West Build (charybdis Left)
+        run: west build --pristine -s zmk/app -b nice_nano -- -DSHIELD=charybdis_left -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Check build status (charybdis Left)
+        run: |
+          if [ -f "build/zephyr/zmk.uf2" ]; then
+            echo "Build successful. zmk.uf2 file found."
+          else
+            echo "Build may have failed. zmk.uf2 file not found."
+            exit 1
+          fi
+      - name: Rename zmk.uf2 (charybdis Left)
+        run: cp build/zephyr/zmk.uf2 charybdis_left_nice_nano.uf2
+      - name: Archive (charybdis Left)
+        uses: actions/upload-artifact@v4
+        with:
+          name: charybdis-firmware-left
+          path: charybdis_left_nice_nano.uf2
+      - name: West Build (charybdis Right)
+        run: west build --pristine -s zmk/app -b nice_nano -- -DSHIELD=charybdis_right -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+      - name: Check build status (charybdis Right)
+        run: |
+          if [ -f "build/zephyr/zmk.uf2" ]; then
+            echo "Build successful. zmk.uf2 file found."
+          else
+            echo "Build may have failed. zmk.uf2 file not found."
+            exit 1
+          fi
+      - name: Rename zmk.uf2 (charybdis Right)
+        run: cp build/zephyr/zmk.uf2 charybdis_right_nice_nano.uf2
+      - name: Archive (charybdis Right)
+        uses: actions/upload-artifact@v4
+        with:
+          name: charybdis-firmware-right
+          path: charybdis_right_nice_nano.uf2
