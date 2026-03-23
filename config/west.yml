@@ -13,9 +13,9 @@ manifest:
       import: app/west.yml
     - name: charybdis-3-6-dongle-prospector-studio
       remote: devpew
-      revision: main
+      revision: 6583513f24162b523113fca96c089e22aa87d748
     - name: zmk-pmw3610-driver
       remote: badjeff
-      revision: main
+      revision: a1a0f35ab6750c8fc72b84ea00add1e5fbaea1e4
   self:
     path: config
