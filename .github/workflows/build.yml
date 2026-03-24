@@ -1,4 +1,4 @@
-# Branch/PR: matrix build + artifacts. Tag push (v*): same builds, then release-firmware zips + GitHub Release.
+# Branch/PR: matrix build + artifacts. Any tag push: same builds, then release-firmware zips + GitHub Release.
 name: Build
 
 on:
@@ -98,7 +98,7 @@ jobs:
     name: Release firmware
     needs: build
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    if: startsWith(github.ref, 'refs/tags/')
     permissions:
       contents: write
 
