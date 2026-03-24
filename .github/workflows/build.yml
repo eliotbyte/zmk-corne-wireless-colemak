@@ -1,12 +1,11 @@
-# Runs on branch pushes and PRs — not on version tags (those use release.yml).
+# Branch/PR: matrix build + artifacts. Tag push (v*): same builds, then release-firmware zips + GitHub Release.
+name: Build
+
 on:
   pull_request:
   workflow_dispatch:
   push:
-    branches:
-      - "**"
 
-name: Build
 jobs:
   build:
     strategy:
@@ -34,7 +33,8 @@ jobs:
     name: Build ${{ matrix.shield }}
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+
       - name: Cache west modules
         uses: actions/cache@v4
         env:
@@ -51,14 +51,18 @@ jobs:
             ${{ runner.os }}-build-${{ env.cache-name }}-
             ${{ runner.os }}-build-
             ${{ runner.os }}-
-      - name: West Init
-        run: west init -l config
-      - name: West Update
-        run: west update
-      - name: West Zephyr export
-        run: west zephyr-export
+
+      - name: West init / update / zephyr-export
+        shell: bash
+        run: |
+          set -euxo pipefail
+          west init -l --mf "${GITHUB_WORKSPACE}/config/west.yml" "${GITHUB_WORKSPACE}/config"
+          west update
+          west zephyr-export
+
       - name: West Build
         run: west build -s zmk/app -b ${{ matrix.board }} -- -DSHIELD=${{ matrix.shield }} -DZMK_CONFIG="${GITHUB_WORKSPACE}/config"
+
       - name: Check build status
         run: |
           if [ -f "build/zephyr/zmk.uf2" ]; then
@@ -67,21 +71,74 @@ jobs:
             echo "Build may have failed. zmk.uf2 file not found."
             exit 1
           fi
+
       - name: DTS File
         if: always()
         run: |
           if [ -f "build/zephyr/${{ matrix.board }}.dts.pre.tmp" ]; then
-            cat -n build/zephyr/${{ matrix.board }}.dts.pre.tmp
+            cat -n "build/zephyr/${{ matrix.board }}.dts.pre.tmp"
           else
             echo "DTS file not found. Listing build directory contents:"
             ls -R build
           fi
+
       - name: Kconfig file
         run: cat build/zephyr/.config | grep -v "^#" | grep -v "^$"
+
       - name: Rename zmk.uf2
-        run: cp build/zephyr/zmk.uf2 ${{ matrix.artifact }}
-      - name: Archive firmware
+        run: cp build/zephyr/zmk.uf2 "${{ matrix.artifact }}"
+
+      - name: Upload firmware
         uses: actions/upload-artifact@v4
         with:
           name: ${{ matrix.shield }}
           path: ${{ matrix.artifact }}
+
+  release-firmware:
+    name: Release firmware
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
+    permissions:
+      contents: write
+
+    steps:
+      - name: Download all build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: firmware
+
+      # upload-artifact stores each matrix output under firmware/<artifact-name>/
+      - name: Create corne.zip and charybdis.zip
+        run: |
+          set -euxo pipefail
+          mkdir -p dist
+          zip -j dist/corne.zip \
+            firmware/corne_left/*.uf2 \
+            firmware/corne_right/*.uf2
+          zip -j dist/charybdis.zip \
+            firmware/charybdis_left/*.uf2 \
+            firmware/charybdis_right/*.uf2 \
+            firmware/charybdis_dongle/*.uf2
+          ls -la dist/
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: Firmware ${{ github.ref_name }}
+          body: |
+            Firmware built from tag **${{ github.ref_name }}** (`${{ github.sha }}`).
+
+            | Archive | Contents |
+            |--------|----------|
+            | **corne.zip** | `corne_left_nice_nano.uf2`, `corne_right_nice_nano.uf2` |
+            | **charybdis.zip** | `charybdis_left_nice_nano.uf2`, `charybdis_right_nice_nano.uf2`, `charybdis_dongle_nice_nano.uf2` |
+
+            Board: `nice_nano`.
+          files: |
+            dist/corne.zip
+            dist/charybdis.zip
+          fail_on_unmatched_files: true
