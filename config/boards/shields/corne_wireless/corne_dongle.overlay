@@ -12,6 +12,9 @@
         zmk,kscan = &mock_kscan;
     };
 
+    /* corne_split_common.dtsi leaves gpio-matrix kscan without col-gpios; dongle uses mock only */
+    /delete-node/ kscan;
+
     mock_kscan: kscan_mock {
         compatible = "zmk,kscan-mock";
         columns = <0>;
