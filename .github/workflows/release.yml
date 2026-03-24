@@ -1,0 +1,97 @@
+# Build all firmware and publish GitHub Release when a version tag is pushed (e.g. v0.1.0).
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    container:
+      image: zmkfirmware/zmk-build-arm:stable
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Cache west modules
+        uses: actions/cache@v4
+        env:
+          cache-name: cache-zephyr-modules
+        with:
+          path: |
+            modules/
+            tools/
+            zephyr/
+            bootloader/
+            zmk/
+          key: ${{ runner.os }}-release-${{ env.cache-name }}-${{ hashFiles('config/west.yml') }}
+          restore-keys: |
+            ${{ runner.os }}-release-${{ env.cache-name }}-
+            ${{ runner.os }}-release-
+            ${{ runner.os }}-
+
+      - name: West init / update
+        run: |
+          west init -l config
+          west update
+          west zephyr-export
+
+      - name: Build firmware and create zip bundles
+        env:
+          ZMK_CFG: ${{ github.workspace }}/config
+        run: |
+          set -euo pipefail
+          BOARD=nice_nano
+          mkdir -p staging
+
+          build_shield() {
+            local shield="$1"
+            local out_name="$2"
+            west build --pristine -s zmk/app -b "${BOARD}" -- \
+              -DSHIELD="${shield}" -DZMK_CONFIG="${ZMK_CFG}"
+            test -f build/zephyr/zmk.uf2
+            cp build/zephyr/zmk.uf2 "staging/${out_name}"
+          }
+
+          # First build: no --pristine (clean tree)
+          west build -s zmk/app -b "${BOARD}" -- -DSHIELD=corne_left -DZMK_CONFIG="${ZMK_CFG}"
+          test -f build/zephyr/zmk.uf2
+          cp build/zephyr/zmk.uf2 staging/corne_left_nice_nano.uf2
+
+          build_shield corne_right corne_right_nice_nano.uf2
+          build_shield charybdis_left charybdis_left_nice_nano.uf2
+          build_shield charybdis_right charybdis_right_nice_nano.uf2
+          build_shield charybdis_dongle charybdis_dongle_nice_nano.uf2
+
+          cd staging
+          zip -j ../corne.zip corne_left_nice_nano.uf2 corne_right_nice_nano.uf2
+          zip -j ../charybdis.zip \
+            charybdis_left_nice_nano.uf2 \
+            charybdis_right_nice_nano.uf2 \
+            charybdis_dongle_nice_nano.uf2
+          cd ..
+          ls -la corne.zip charybdis.zip
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: ${{ github.ref_name }}
+          body: |
+            Firmware built from tag **${{ github.ref_name }}** (`${{ github.sha }}`).
+
+            | Archive | Contents |
+            |--------|----------|
+            | **corne.zip** | `corne_left_nice_nano.uf2`, `corne_right_nice_nano.uf2` |
+            | **charybdis.zip** | `charybdis_left_nice_nano.uf2`, `charybdis_right_nice_nano.uf2`, `charybdis_dongle_nice_nano.uf2` |
+
+            Board: `nice_nano`.
+          files: |
+            corne.zip
+            charybdis.zip
+          fail_on_unmatched_files: true
