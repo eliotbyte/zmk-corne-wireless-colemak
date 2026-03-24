@@ -19,6 +19,15 @@ jobs:
             shield: corne_right
             artifact: corne_right_nice_nano.uf2
           - board: nice_nano
+            shield: corne_dongle
+            artifact: corne_dongle_nice_nano.uf2
+          - board: nice_nano
+            shield: corne_left_peripheral
+            artifact: corne_left_peripheral_nice_nano.uf2
+          - board: nice_nano
+            shield: corne_right_peripheral
+            artifact: corne_right_peripheral_nice_nano.uf2
+          - board: nice_nano
             shield: charybdis_left
             artifact: charybdis_left_nice_nano.uf2
           - board: nice_nano
@@ -109,13 +118,17 @@ jobs:
           path: firmware
 
       # upload-artifact stores each matrix output under firmware/<artifact-name>/
-      - name: Create corne.zip and charybdis.zip
+      - name: Create release zips
         run: |
           set -euxo pipefail
           mkdir -p dist
           zip -j dist/corne.zip \
             firmware/corne_left/*.uf2 \
             firmware/corne_right/*.uf2
+          zip -j dist/corne-dongle.zip \
+            firmware/corne_dongle/*.uf2 \
+            firmware/corne_left_peripheral/*.uf2 \
+            firmware/corne_right_peripheral/*.uf2
           zip -j dist/charybdis.zip \
             firmware/charybdis_left/*.uf2 \
             firmware/charybdis_right/*.uf2 \
@@ -135,10 +148,12 @@ jobs:
             | Archive | Contents |
             |--------|----------|
             | **corne.zip** | `corne_left_nice_nano.uf2`, `corne_right_nice_nano.uf2` |
+            | **corne-dongle.zip** | `corne_dongle_nice_nano.uf2`, `corne_left_peripheral_nice_nano.uf2`, `corne_right_peripheral_nice_nano.uf2` |
             | **charybdis.zip** | `charybdis_left_nice_nano.uf2`, `charybdis_right_nice_nano.uf2`, `charybdis_dongle_nice_nano.uf2` |
 
             Board: `nice_nano`.
           files: |
             dist/corne.zip
+            dist/corne-dongle.zip
             dist/charybdis.zip
           fail_on_unmatched_files: true
