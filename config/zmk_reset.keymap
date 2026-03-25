@@ -1,0 +1,7 @@
+/*
+ * Minimal keymap for reset firmware.
+ * We reuse the normal Corne keymap so ZMK can always build a valid keymap node.
+ */
+
+#include "corne.keymap"
+
