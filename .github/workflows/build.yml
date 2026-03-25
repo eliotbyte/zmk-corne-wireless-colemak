@@ -36,6 +36,9 @@ jobs:
           - board: nice_nano
             shield: charybdis_dongle
             artifact: charybdis_dongle_nice_nano.uf2
+          - board: nice_nano
+            shield: zmk_reset
+            artifact: zmk_reset_nice_nano.uf2
     runs-on: ubuntu-latest
     container:
       image: zmkfirmware/zmk-build-arm:stable
@@ -133,6 +136,8 @@ jobs:
             firmware/charybdis_left/*.uf2 \
             firmware/charybdis_right/*.uf2 \
             firmware/charybdis_dongle/*.uf2
+          zip -j dist/reset.zip \
+            firmware/zmk_reset/*.uf2
           ls -la dist/
 
       - name: Create GitHub Release
@@ -150,10 +155,12 @@ jobs:
             | **corne.zip** | `corne_left_nice_nano.uf2`, `corne_right_nice_nano.uf2` |
             | **corne-dongle.zip** | `corne_dongle_nice_nano.uf2`, `corne_left_peripheral_nice_nano.uf2`, `corne_right_peripheral_nice_nano.uf2` |
             | **charybdis.zip** | `charybdis_left_nice_nano.uf2`, `charybdis_right_nice_nano.uf2`, `charybdis_dongle_nice_nano.uf2` |
+            | **reset.zip** | `zmk_reset_nice_nano.uf2` |
 
             Board: `nice_nano`.
           files: |
             dist/corne.zip
             dist/corne-dongle.zip
             dist/charybdis.zip
+            dist/reset.zip
           fail_on_unmatched_files: true

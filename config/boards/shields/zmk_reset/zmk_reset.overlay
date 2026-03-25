@@ -1,0 +1,22 @@
+/*
+ * Minimal overlay for reset firmware.
+ * We only need to satisfy the devicetree requirements for BLE+settings reset:
+ * - no display nodes
+ * - no GPIO kscan matrix (use kscan-mock)
+ */
+
+#include "zmk_reset_common.dtsi"
+
+/ {
+	chosen {
+		zmk,kscan = &mock_kscan;
+	};
+
+	mock_kscan: kscan_mock {
+		compatible = "zmk,kscan-mock";
+		columns = <0>;
+		rows = <0>;
+		events = <0>;
+	};
+};
+
