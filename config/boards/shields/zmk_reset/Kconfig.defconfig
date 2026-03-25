@@ -2,9 +2,8 @@
 
 if SHIELD_ZMK_RESET
 
-# Reuse existing keymap from this repo to avoid shipping another keymap file.
 config ZMK_KEYBOARD_NAME
-	default "Corne"
+	default "zmk_reset"
 
 endif
 
