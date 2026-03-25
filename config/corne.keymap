@@ -88,10 +88,10 @@
 // -----------------------------------------------------------------------------------------
 // |  (cursor)   |  (cursor)   |   |      | LMB | MMB | RMB |
                         bindings = <
-   &trans   &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
-   &trans   &mmv MOVE_UP  &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans      &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans  &trans  &trans
-   &trans   &trans   &trans   &trans   &trans   &trans      &trans   &trans   &trans   &trans   &trans   &trans
-                                                &trans      &trans      &trans               &trans       &trans      &trans
+   &trans   &trans   &trans          &mmv MOVE_UP    &trans           &trans      &trans   &trans     &trans     &trans    &trans   &trans
+   &trans   &trans   &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &trans      &trans   &mkp LCLK  &mkp MCLK  &mkp RCLK  &trans  &trans
+   &trans   &trans   &trans          &trans          &trans           &trans      &trans   &trans     &trans     &trans    &trans   &trans
+                                     &trans          &trans           &trans      &trans   &trans     &trans
                         >;
                 };
         };
