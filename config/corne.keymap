@@ -87,10 +87,10 @@
                 mouse_layer {
 // -----------------------------------------------------------------------------------------
                         bindings = <
-   &none &none &none          &mmv MOVE_UP   &none           &none      &none &none    &mkp MB3 &none    &none &none
-   &none &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
+   &none &none &none          &mmv MOVE_Y(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &mmv MOVE_X(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_Y(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_X(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
-                              &none          &none           &none      &none &none    &none
+                              &none          &mo 7           &none      &none &none    &none
                         >;
                 };
 
@@ -102,7 +102,27 @@
    &none &none &none          &msc SCRL_UP   &none           &none      &none &none    &mkp MB3 &none    &none &none
    &none &none &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT &none      &none &mkp MB1 &none    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
-                              &none          &none           &none      &none &none    &none
+                              &none          &mo 8           &none      &none &none    &none
+                        >;
+                };
+
+                mouse_shift_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &none &none &none          &mmv MOVE_UP   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &mo 7           &none      &none &none    &none
+                        >;
+                };
+
+                scroll_shift_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &none &none &none          &msc MOVE_Y(ZMK_POINTING_DEFAULT_SCRL_VAL * 3)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &msc MOVE_X(-ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &msc MOVE_Y(-ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &msc MOVE_X(ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &mo 8           &none      &none &none    &none
                         >;
                 };
         };
