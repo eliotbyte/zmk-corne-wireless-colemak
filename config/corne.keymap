@@ -86,10 +86,21 @@
 
                 mouse_layer {
 // -----------------------------------------------------------------------------------------
-// |  (cursor)   |  (cursor)   |   |      | LMB | MMB | RMB |
                         bindings = <
-   &none   &none   &none          &mmv MOVE_UP    &none           &none      &none   &none     &none     &none    &none   &none
-   &none   &none   &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &none   &mkp MB1   &mkp MB3   &mkp MB2   &none  &none
+   &none   &none   &none          &mmv MOVE_UP    &none           &none      &none   &none     &mkp MB3     &none    &none   &none
+   &none   &none   &mmv MOVE_LEFT  &mmv MOVE_DOWN  &mmv MOVE_RIGHT  &none      &none   &mkp MB1   &mo 6   &mkp MB2   &none  &none
+   &none   &none   &none          &none          &none           &none      &none   &none     &none     &none    &none   &none
+                                     &none          &none           &none      &none   &none     &none
+                        >;
+                };
+
+                // When held, mouse move keys become scrolling commands.
+                scroll_layer {
+// -----------------------------------------------------------------------------------------
+// |  (cursor)   |  (cursor)   |   |  scroll-left/up/down/right |      | LMB | MMB | RMB |
+                        bindings = <
+   &none   &none   &none          &msc SCRL_UP      &none           &none      &none   &none     &mkp MB3     &none    &none   &none
+   &none   &none   &msc SCRL_LEFT  &msc SCRL_DOWN  &msc SCRL_RIGHT  &none      &none   &mkp MB1   &none   &mkp MB2   &none  &none
    &none   &none   &none          &none          &none           &none      &none   &none     &none     &none    &none   &none
                                      &none          &none           &none      &none   &none     &none
                         >;
