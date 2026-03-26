@@ -10,6 +10,9 @@
 #include <dt-bindings/zmk/pointing.h>
 #include "behaviors/behavior_esc_layer_switch.dtsi"
 
+#define MOVE_BASE (ZMK_POINTING_DEFAULT_MOVE_VAL * 3)
+#define MOVE_FAST (MOVE_BASE * 3)
+
 #define SCROLL_BASE (ZMK_POINTING_DEFAULT_SCRL_VAL * 9)
 #define SCROLL_FAST (SCROLL_BASE * 3)
 
@@ -90,8 +93,8 @@
                 mouse_layer {
 // -----------------------------------------------------------------------------------------
                         bindings = <
-   &none &none &none          &mmv MOVE_Y(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3)   &none           &none      &none &none    &mkp MB3 &none    &none &none
-   &none &none &mmv MOVE_X(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_Y(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_X(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &none      &mo 9    &mkp MB1 &mo 6    &mkp MB2 &none &none
+   &none &none &none          &mmv MOVE_Y(-MOVE_FAST)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &mmv MOVE_X(-MOVE_FAST) &mmv MOVE_Y(MOVE_FAST) &mmv MOVE_X(MOVE_FAST) &none      &mo 9    &mkp MB1 &mo 6    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
                               &none          &mo 7           &none      &none &none    &none
                         >;
@@ -112,8 +115,8 @@
                 mouse_shift_layer {
 // -----------------------------------------------------------------------------------------
                         bindings = <
-   &none &none &none          &mmv MOVE_UP   &none           &none      &none &none    &mkp MB3 &none    &none &none
-   &none &none &mmv MOVE_LEFT &mmv MOVE_DOWN &mmv MOVE_RIGHT &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
+   &none &none &none          &mmv MOVE_Y(-MOVE_BASE)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &mmv MOVE_X(-MOVE_BASE) &mmv MOVE_Y(MOVE_BASE) &mmv MOVE_X(MOVE_BASE) &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
                               &none          &mo 7           &none      &none &none    &none
                         >;
