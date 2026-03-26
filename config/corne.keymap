@@ -88,7 +88,7 @@
 // -----------------------------------------------------------------------------------------
                         bindings = <
    &none &none &none          &mmv MOVE_Y(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3)   &none           &none      &none &none    &mkp MB3 &none    &none &none
-   &none &none &mmv MOVE_X(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_Y(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_X(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
+   &none &none &mmv MOVE_X(-ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_Y(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &mmv MOVE_X(ZMK_POINTING_DEFAULT_MOVE_VAL * 3) &none      &mo 9    &mkp MB1 &mo 6    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
                               &none          &mo 7           &none      &none &none    &none
                         >;
@@ -123,6 +123,16 @@
    &none &none &msc MOVE_X(-ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &msc MOVE_Y(-ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &msc MOVE_X(ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
                               &none          &mo 8           &none      &none &none    &none
+                        >;
+                };
+
+                screen_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &none &none &none          &kp LG(TAB)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &kp LC(LG(LEFT)) &kp LG(D) &kp LC(LG(RIGHT)) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &none           &none      &none &none    &none
                         >;
                 };
         };
