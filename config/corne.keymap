@@ -10,6 +10,9 @@
 #include <dt-bindings/zmk/pointing.h>
 #include "behaviors/behavior_esc_layer_switch.dtsi"
 
+#define SCROLL_BASE (ZMK_POINTING_DEFAULT_SCRL_VAL * 9)
+#define SCROLL_FAST (SCROLL_BASE * 3)
+
 / {
         keymap {
                 compatible = "zmk,keymap";
@@ -99,8 +102,8 @@
 // -----------------------------------------------------------------------------------------
 // |  (cursor)   |  (cursor)   |   |  scroll-left/up/down/right |      | LMB | MMB | RMB |
                         bindings = <
-   &none &none &none          &msc SCRL_UP   &none           &none      &none &none    &mkp MB3 &none    &none &none
-   &none &none &msc SCRL_LEFT &msc SCRL_DOWN &msc SCRL_RIGHT &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &msc MOVE_Y(SCROLL_BASE)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &msc MOVE_X(-SCROLL_BASE) &msc MOVE_Y(-SCROLL_BASE) &msc MOVE_X(SCROLL_BASE) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
                               &none          &mo 8           &none      &none &none    &none
                         >;
@@ -119,8 +122,8 @@
                 scroll_shift_layer {
 // -----------------------------------------------------------------------------------------
                         bindings = <
-   &none &none &none          &msc MOVE_Y(ZMK_POINTING_DEFAULT_SCRL_VAL * 3)   &none           &none      &none &none    &mkp MB3 &none    &none &none
-   &none &none &msc MOVE_X(-ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &msc MOVE_Y(-ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &msc MOVE_X(ZMK_POINTING_DEFAULT_SCRL_VAL * 3) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &msc MOVE_Y(SCROLL_FAST)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &msc MOVE_X(-SCROLL_FAST) &msc MOVE_Y(-SCROLL_FAST) &msc MOVE_X(SCROLL_FAST) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
    &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
                               &none          &mo 8           &none      &none &none    &none
                         >;
