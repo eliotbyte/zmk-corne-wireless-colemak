@@ -125,19 +125,32 @@ jobs:
         run: |
           set -euxo pipefail
           mkdir -p dist
-          zip -j dist/corne.zip \
-            firmware/corne_left/*.uf2 \
-            firmware/corne_right/*.uf2
-          zip -j dist/corne-dongle.zip \
-            firmware/corne_dongle/*.uf2 \
-            firmware/corne_left_peripheral/*.uf2 \
-            firmware/corne_right_peripheral/*.uf2
-          zip -j dist/charybdis.zip \
-            firmware/charybdis_left/*.uf2 \
-            firmware/charybdis_right/*.uf2 \
-            firmware/charybdis_dongle/*.uf2
-          zip -j dist/reset.zip \
-            firmware/zmk_reset/*.uf2
+
+          # corne.zip -> left.uf2 + right.uf2
+          mkdir -p dist/_tmp_corne
+          cp firmware/corne_left/*.uf2 dist/_tmp_corne/left.uf2
+          cp firmware/corne_right/*.uf2 dist/_tmp_corne/right.uf2
+          zip -j dist/corne.zip dist/_tmp_corne/left.uf2 dist/_tmp_corne/right.uf2
+          rm -rf dist/_tmp_corne
+
+          # corne-dongle.zip -> dongle.uf2 + left_peripheral.uf2 + right_peripheral.uf2
+          mkdir -p dist/_tmp_corne_dongle
+          cp firmware/corne_dongle/*.uf2 dist/_tmp_corne_dongle/dongle.uf2
+          cp firmware/corne_left_peripheral/*.uf2 dist/_tmp_corne_dongle/left_peripheral.uf2
+          cp firmware/corne_right_peripheral/*.uf2 dist/_tmp_corne_dongle/right_peripheral.uf2
+          zip -j dist/corne-dongle.zip dist/_tmp_corne_dongle/*.uf2
+          rm -rf dist/_tmp_corne_dongle
+
+          # charybdis.zip -> left.uf2 + right.uf2 + dongle.uf2
+          mkdir -p dist/_tmp_charybdis
+          cp firmware/charybdis_left/*.uf2 dist/_tmp_charybdis/left.uf2
+          cp firmware/charybdis_right/*.uf2 dist/_tmp_charybdis/right.uf2
+          cp firmware/charybdis_dongle/*.uf2 dist/_tmp_charybdis/dongle.uf2
+          zip -j dist/charybdis.zip dist/_tmp_charybdis/*.uf2
+          rm -rf dist/_tmp_charybdis
+
+          # reset.zip не нужен: просто переименовываем uf2 в dist/reset.uf2
+          cp firmware/zmk_reset/*.uf2 dist/reset.uf2
           ls -la dist/
 
       - name: Create GitHub Release
@@ -152,15 +165,14 @@ jobs:
 
             | Archive | Contents |
             |--------|----------|
-            | **corne.zip** | `corne_left_nice_nano.uf2`, `corne_right_nice_nano.uf2` |
-            | **corne-dongle.zip** | `corne_dongle_nice_nano.uf2`, `corne_left_peripheral_nice_nano.uf2`, `corne_right_peripheral_nice_nano.uf2` |
-            | **charybdis.zip** | `charybdis_left_nice_nano.uf2`, `charybdis_right_nice_nano.uf2`, `charybdis_dongle_nice_nano.uf2` |
-            | **reset.zip** | `zmk_reset_nice_nano.uf2` |
+            | **corne.zip** | `left.uf2`, `right.uf2` |
+            | **corne-dongle.zip** | `dongle.uf2`, `left_peripheral.uf2`, `right_peripheral.uf2` |
+            | **charybdis.zip** | `left.uf2`, `right.uf2`, `dongle.uf2` |
 
             Board: `nice_nano`.
           files: |
             dist/corne.zip
             dist/corne-dongle.zip
             dist/charybdis.zip
-            dist/reset.zip
+            dist/reset.uf2
           fail_on_unmatched_files: true
