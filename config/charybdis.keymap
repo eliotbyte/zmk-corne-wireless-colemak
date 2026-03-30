@@ -7,7 +7,14 @@
 #include <behaviors.dtsi>
 #include <dt-bindings/zmk/keys.h>
 #include <dt-bindings/zmk/bt.h>
+#include <dt-bindings/zmk/pointing.h>
 #include "behaviors/behavior_esc_layer_switch.dtsi"
+
+#define MOVE_BASE (ZMK_POINTING_DEFAULT_MOVE_VAL)
+#define MOVE_FAST (MOVE_BASE * 3)
+
+#define SCROLL_BASE (ZMK_POINTING_DEFAULT_SCRL_VAL * 16)
+#define SCROLL_FAST (SCROLL_BASE * 3)
 
 / {
         keymap {
@@ -20,10 +27,10 @@
 // | CTRL |  Z  |  X  |  C  |  V  |  B  |   |  K  |  M  |  ,  |  .  |  /  |   GUI    |
 //                    | LALT| LWR |SPACE|   | RET | RSE |
                         bindings = <
-   &kp TAB   &kp Q &kp W &kp F &kp P &kp G   &kp J &kp L  &kp U     &kp Y   &kp SEMI &lt 4 ESC
+   &kp TAB   &kp Q &kp W &kp F &kp P &kp G   &kp J &kp L  &kp U     &kp Y   &kp SEMI &lt 5 ESC
    &kp LSHFT &kp A &kp R &kp S &kp T &kp D   &kp H &kp N  &kp E     &kp I   &kp O    &kp SQT
    &kp LCTRL &kp Z &kp X &kp C &kp V &kp B   &kp K &kp M  &kp COMMA &kp DOT &kp FSLH &kp LGUI
-                  &to_rus LALT 0 &mo 2 &kp SPACE   &kp RET &mo 3
+                  &to_rus LALT 0 &mo 3 &kp SPACE   &kp RET &mo 4
                         >;
                 };
 
@@ -34,10 +41,20 @@
 // | CTRL |  Z  |  X  |  C  |  V  |  B  |   |  N  | M ] |  ,  |  .  |  /  |   GUI    |
 //                    | LALT| LWR |SPACE|   | RET | RSE |
                         bindings = <
-   &kp TAB   &kp Q &kp W &kp E &kp R &hold GRAVE T   &kp Y   &kp U        &hold O I      &kp P   &kp LBKT &lt 4 ESC
+   &kp TAB   &kp Q &kp W &kp E &kp R &hold GRAVE T   &kp Y   &kp U        &hold O I      &kp P   &kp LBKT &lt 5 ESC
    &kp LSHFT &kp A &kp S &kp D &kp F &kp G           &kp H   &kp J        &kp K          &kp L   &kp SEMI &kp SQT
    &kp LCTRL &kp Z &kp X &kp C &kp V &kp B           &kp N   &hold RBKT M &kp COMMA      &kp DOT &kp FSLH &kp LGUI
-                &to_eng LALT 0 &mo 2 &kp SPACE       &kp RET &mo 3
+                &to_eng LALT 0 &mo 3 &kp SPACE       &kp RET &mo 4
+                        >;
+                };
+
+                mouse_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &trans &trans &none          &mmv MOVE_Y(-MOVE_FAST)   &none           &none      &none &none    &mkp MB3 &none    &none &trans
+   &trans &trans &mmv MOVE_X(-MOVE_FAST) &mmv MOVE_Y(MOVE_FAST) &mmv MOVE_X(MOVE_FAST) &none      &mo 9    &mkp MB1 &mo 6    &mkp MB2 &trans &mo 7
+   &trans &trans &trans          &trans          &trans           &trans      &none &mkp MB4 &mkp MB5 &none    &none &trans
+                              &kp LALT          &trans           &trans      &trans &mo 4
                         >;
                 };
 
@@ -80,6 +97,48 @@
    &bt BT_CLR  &bt BT_SEL 0 &bt BT_SEL 1 &bt BT_SEL 2 &bt BT_SEL 3 &bt BT_SEL 4      &kp F11   &kp F4   &kp F5   &kp F6   &trans   &trans
    &trans      &trans   &trans   &trans   &trans   &trans      &kp F10   &kp F1   &kp F2   &kp F3   &trans   &trans
                                                 &trans      &trans      &trans               &trans       &trans
+                        >;
+                };
+ 
+                // When held, mouse move keys become scrolling commands.
+                scroll_layer {
+// -----------------------------------------------------------------------------------------
+// |  (cursor)   |  (cursor)   |   |  scroll-left/up/down/right |      | LMB | MMB | RMB |
+                        bindings = <
+   &none &none &none          &msc MOVE_Y(SCROLL_BASE)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &msc MOVE_X(-SCROLL_BASE) &msc MOVE_Y(-SCROLL_BASE) &msc MOVE_X(SCROLL_BASE) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &none           &none      &none &mo 8
+                        >;
+                };
+
+                mouse_shift_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &none &none &none          &mmv MOVE_Y(-MOVE_BASE)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &mmv MOVE_X(-MOVE_BASE) &mmv MOVE_Y(MOVE_BASE) &mmv MOVE_X(MOVE_BASE) &none      &none &mkp MB1 &mo 6    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &none           &none      &none &mo 7
+                        >;
+                };
+
+                scroll_shift_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &none &none &none          &msc MOVE_Y(SCROLL_FAST)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &msc MOVE_X(-SCROLL_FAST) &msc MOVE_Y(-SCROLL_FAST) &msc MOVE_X(SCROLL_FAST) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &none           &none      &none &mo 8
+                        >;
+                };
+
+                screen_layer {
+// -----------------------------------------------------------------------------------------
+                        bindings = <
+   &none &none &none          &kp LG(TAB)   &none           &none      &none &none    &mkp MB3 &none    &none &none
+   &none &none &kp LC(LG(LEFT)) &kp LG(D) &kp LC(LG(RIGHT)) &none      &none &mkp MB1 &none    &mkp MB2 &none &none
+   &none &none &none          &none          &none           &none      &none &mkp MB4 &mkp MB5 &none    &none &none
+                              &none          &none           &none      &none &none
                         >;
                 };
         };
