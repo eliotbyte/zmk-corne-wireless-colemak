@@ -15,6 +15,9 @@
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
         require-prior-idle-ms = <150>;
+        // Work around Zephyr/ZMK devicetree macro edge-case: ensure property exists.
+        // 999 is outside any real key position range, so behavior is effectively unchanged.
+        excluded-positions = <999>;
     };
 
     // Central-side listener: takes events from the split input device and
