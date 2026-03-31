@@ -2,43 +2,31 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 / {
-    split_inputs {
-        trackball_input: trackball_input@0 {
-            compatible = "zmk,input-split";
-            reg = <0>;
-            status = "okay";
-            device = <&trackball_split>;
-        };
+    /*
+     * Avoid ZMK build failure with multiple temp-layer instances
+     * (zmkfirmware/zmk#3282):
+     * The shield module already defines a temp-layer processor (`auto_mouse_layer`)
+     * in its `split_input_common.dtsi`. We delete it and use ONLY the pre-defined
+     * `zip_temp_layer` instance.
+     */
+    /delete-node/ auto_mouse_layer;
+};
+
+&trackball_listener {
+    // mouse_layer = 2, scroll_layer = 6, mouse_shift_layer = 7 (from config/charybdis.keymap)
+    input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 2 5>;
+
+    slow_pointer {
+        layers = <7>;
+        input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 1 5>;
     };
 
-    /*
-     * IMPORTANT: ZMK currently has a build issue when multiple
-     * `zmk,input-processor-temp-layer` instances exist (see zmkfirmware/zmk#3282).
-     * We therefore reuse the pre-defined `zip_temp_layer` instance and only
-     * override its settings.
-     */
-
-    // Central-side listener: takes events from the split input device and
-    // applies processors + auto mouse layer toggle.
-    trackball_listener: trackball_listener {
-        compatible = "zmk,input-listener";
-        device = <&trackball_input>;
-
-        // mouse_layer = 2, scroll_layer = 6, mouse_shift_layer = 7 (from config/charybdis.keymap)
-        input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 2 5>;
-
-        slow_pointer {
-            layers = <7>;
-            input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 1 5>;
-        };
-
-        scroller {
-            layers = <6>;
-            input-processors = <&zip_xy_to_scroll_mapper
-                &zip_scroll_scaler 1 48
-                &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
-            >;
-        };
+    scroller {
+        layers = <6>;
+        input-processors = <&zip_xy_to_scroll_mapper
+            &zip_scroll_scaler 1 48
+            &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
+        >;
     };
 };
 
