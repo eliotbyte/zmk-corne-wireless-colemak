@@ -13,6 +13,13 @@
 };
 
 &trackball_listener {
+    /* Module's split_input_common.dtsi defines:
+     *   move { input-processors = <&auto_mouse_layer ...>; }
+     * If we delete `auto_mouse_layer`, we must also delete the `move` node
+     * (otherwise devicetree fails with undefined node label).
+     */
+    /delete-node/ move;
+
     // mouse_layer = 2, scroll_layer = 6, mouse_shift_layer = 7 (from config/charybdis.keymap)
     input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 2 5>;
 
