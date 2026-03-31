@@ -51,10 +51,10 @@
                 mouse_layer {
 // -----------------------------------------------------------------------------------------
                         bindings = <
-   &trans &trans &none          &mmv MOVE_Y(-MOVE_FAST)   &none           &none      &none &none    &mkp MB3 &none    &none &trans
-   &trans &trans &mmv MOVE_X(-MOVE_FAST) &mmv MOVE_Y(MOVE_FAST) &mmv MOVE_X(MOVE_FAST) &none      &mo 9    &mkp MB1 &mo 6    &mkp MB2 &trans &mo 7
-   &trans &trans &trans          &trans          &trans           &trans      &none &mkp MB4 &mkp MB5 &none    &none &trans
-                              &kp LALT          &trans           &trans      &trans &trans
+   &trans &trans &none  &none  &none  &none      &none  &none    &mkp MB3 &none     &none &trans
+   &trans &trans &none  &none  &none  &none      &mo 9  &mkp MB1 &mo 6    &mkp MB2  &mo 7 &none
+   &trans &trans &trans &trans &trans &trans     &none  &mkp MB4 &mkp MB5 &none     &none &trans
+                      &kp LALT &trans &trans     &trans &trans
                         >;
                 };
 

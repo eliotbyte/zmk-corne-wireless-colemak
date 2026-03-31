@@ -21,17 +21,17 @@
     /delete-node/ move;
 
     // mouse_layer = 2, scroll_layer = 6, mouse_shift_layer = 7 (from config/charybdis.keymap)
-    input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 2 5>;
+    input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 6 5>;
 
     slow_pointer {
         layers = <7>;
-        input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 1 5>;
+        input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 3 5>;
     };
 
     scroller {
         layers = <6>;
         input-processors = <&zip_xy_to_scroll_mapper
-            &zip_scroll_scaler 1 48
+            &zip_scroll_scaler 5 48
             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
         >;
     };
