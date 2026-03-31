@@ -20,12 +20,15 @@
      */
     /delete-node/ move;
 
-    // mouse_layer = 2, scroll_layer = 6, mouse_shift_layer = 7 (from config/charybdis.keymap)
-    input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 6 5>;
+    /*
+     * mouse_layer = 2 activation is now handled by the auto_mouse_layer C module.
+     * scroll_layer = 6, mouse_shift_layer = 7 (from config/charybdis.keymap)
+     */
+    input-processors = <&zip_xy_scaler 6 5>;
 
     slow_pointer {
         layers = <7>;
-        input-processors = <&zip_temp_layer 2 850 &zip_xy_scaler 3 5>;
+        input-processors = <&zip_xy_scaler 3 5>;
     };
 
     scroller {
@@ -35,9 +38,5 @@
             &zip_scroll_transform (INPUT_TRANSFORM_Y_INVERT)
         >;
     };
-};
-
-&zip_temp_layer {
-    require-prior-idle-ms = <150>;
 };
 
