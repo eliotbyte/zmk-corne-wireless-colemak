@@ -16,7 +16,7 @@ static struct k_work_delayable activate_mouse_work;
 
 static void mouse_timeout_fn(struct k_work *work) {
     atomic_clear(&mouse_active);
-    zmk_keymap_layer_deactivate(MOUSE_LAYER);
+    zmk_keymap_layer_deactivate(MOUSE_LAYER, false);
 }
 
 static void keyboard_lock_fn(struct k_work *work) {
@@ -28,7 +28,7 @@ static void activate_mouse_fn(struct k_work *work) {
     if (atomic_get(&keyboard_lock)) return;
     if (!atomic_get(&mouse_active)) {
         atomic_set(&mouse_active, 1);
-        zmk_keymap_layer_activate(MOUSE_LAYER);
+        zmk_keymap_layer_activate(MOUSE_LAYER, false);
     }
     k_work_reschedule(&mouse_timeout_work, K_MSEC(CONFIG_ZMK_AUTO_MOUSE_TIMEOUT_MS));
 }
