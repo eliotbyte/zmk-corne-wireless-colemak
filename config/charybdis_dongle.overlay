@@ -2,6 +2,15 @@
 #include <dt-bindings/zmk/input_transform.h>
 
 / {
+    split_inputs {
+        trackball_input: trackball_input@0 {
+            compatible = "zmk,input-split";
+            reg = <0>;
+            status = "okay";
+            device = <&trackball_split>;
+        };
+    };
+
     pointer_auto_layer: pointer_auto_layer {
         compatible = "zmk,input-processor-temp-layer";
         #input-processor-cells = <2>;
