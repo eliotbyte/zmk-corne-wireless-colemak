@@ -1,7 +1,8 @@
-/* Intentionally empty.
- *
- * The trackball hardware/input listener is defined on the side that has the
- * device (right), and processing/layer toggling is configured on the central
- * (dongle).
+/* Add wakeup-source to kscan — missing in upstream charybdis module.
+ * Without this, the nRF52840 doesn't register the key matrix GPIO as a
+ * wakeup source, causing unreliable BLE reconnect after deep sleep.
  */
+&kscan0 {
+    wakeup-source;
+};
 
