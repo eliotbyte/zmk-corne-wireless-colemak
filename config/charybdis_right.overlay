@@ -1,5 +1,9 @@
 #include <zephyr/dt-bindings/input/input-event-codes.h>
 
+&kscan0 {
+    wakeup-source;
+};
+
 &trackball {
     /delete-property/ irq-gpios;
     /delete-property/ cpi;
@@ -13,6 +17,7 @@
     // Match input direction expectations (cursor + scroll baseline).
     invert-x;
     invert-y;
+    wakeup-source;
 };
 
 &trackball_split {
