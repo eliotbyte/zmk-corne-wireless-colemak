@@ -1,23 +1,15 @@
-#include <zephyr/dt-bindings/input/input-event-codes.h>
-
 &kscan0 {
     wakeup-source;
 };
 
 &trackball {
-    /delete-property/ irq-gpios;
-    /delete-property/ cpi;
-    /delete-property/ evt-type;
-    /delete-property/ x-input-code;
-    /delete-property/ y-input-code;
-    motion-gpios = <&gpio0 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
-    zephyr,axis-x = <INPUT_REL_X>;
-    zephyr,axis-y = <INPUT_REL_Y>;
-    res-cpi = <800>;
-    // Match input direction expectations (cursor + scroll baseline).
+    /* charybdis_3610.dtsi already sets irq-gpios, cpi, evt-type,
+     * x/y-input-code for the badjeff pmw3610 driver. Only add overrides. */
     invert-x;
     invert-y;
-    wakeup-source;
+    /* Keep sensor awake while ZMK is ACTIVE; enter REST modes on IDLE/SLEEP.
+     * Sensor becomes a wakeup-source without needing ZMK deep sleep on this side. */
+    force-awake;
 };
 
 &trackball_split {

@@ -4,6 +4,8 @@ manifest:
       url-base: https://github.com/zmkfirmware
     - name: alexrorsh
       url-base: https://github.com/alexrorsh
+    - name: badjeff
+      url-base: https://github.com/badjeff
   projects:
     - name: zmk
       remote: zmkfirmware
@@ -12,5 +14,8 @@ manifest:
     - name: charybdis-3-6-dongle-prospector-studio
       remote: alexrorsh
       revision: fa48c4d248f6c88c84e7b62bdf076af5ceeafb34
+    - name: zmk-pmw3610-driver
+      remote: badjeff
+      revision: 77635ba
   self:
     path: config
