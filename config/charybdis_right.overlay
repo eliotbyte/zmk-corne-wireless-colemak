@@ -3,12 +3,11 @@
 };
 
 &trackball {
-    /* charybdis_3610.dtsi already sets irq-gpios, cpi, evt-type,
-     * x/y-input-code for the badjeff pmw3610 driver. Only add overrides. */
+    /* charybdis_3610.dtsi already defines irq-gpios/cpi/evt-type/x-y-input-code
+     * for the badjeff pmw3610 driver. Only add overrides here. */
     invert-x;
     invert-y;
-    /* Keep sensor awake while ZMK is ACTIVE; enter REST modes on IDLE/SLEEP.
-     * Sensor becomes a wakeup-source without needing ZMK deep sleep on this side. */
+    /* Keep sensor awake while ZMK is ACTIVE; enter REST modes on IDLE/SLEEP. */
     force-awake;
 };
 

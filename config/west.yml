@@ -9,7 +9,7 @@ manifest:
   projects:
     - name: zmk
       remote: zmkfirmware
-      revision: 118359c8
+      revision: 4ec69cb
       import: app/west.yml
     - name: charybdis-3-6-dongle-prospector-studio
       remote: alexrorsh
