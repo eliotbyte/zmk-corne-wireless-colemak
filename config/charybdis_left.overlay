@@ -1,8 +1,8 @@
-/* Add wakeup-source to kscan — missing in upstream charybdis module.
- * Without this, the nRF52840 doesn't register the key matrix GPIO as a
- * wakeup source, causing unreliable BLE reconnect after deep sleep.
+/* Left peripheral — intentionally empty.
+ *
+ * Note: wakeup-source cannot be added to &kscan0 here because with the
+ * ZMK version in use (Zephyr 3.5), user config overlays are processed
+ * before shield overlays, so kscan0 is not yet defined at this point.
+ * The trackball hardware and input listener are defined on the right side;
+ * processing/layer toggling is configured on the central (dongle).
  */
-&kscan0 {
-    wakeup-source;
-};
-
